@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('Regular console.log');
+    
+    // Interpolated
+    console.log('This string is %s', 'interpolated.');
+    let consoleTxt = 'es6 interpolated.';
+    console.log(`This string is ${consoleTxt}`);
+    
+    // Styled
+    console.log('%c Styled console.log.', 'font-weight: 600; color; rebeccapurple;')
+
+    // warning!
+    console.warn('Warning.');
+
+    // Error :|
+    console.error('Fatal error, please reboot.');
+
+    // Info
+    console.info('Funny console info.');
+
+    // Testing
+    // This can be very handy when testing the ui.
+    const col = 'red';
+    console.assert(col === 'blue', 'Wrong colour.');
+
+    // clearing
+    // console.clear();
+
+    // Viewing DOM Elements
+    console.dir(document.querySelector('p'));
+
+    // Grouping together
+    const consoleGroup = 'Test c';
+    console.group(consoleGroup);
+    console.log('Start test.');
+    console.log('End test.');
+    console.groupEnd(consoleGroup);
+
+    // counting
+    console.count('Test');
+    console.count('Test');
+    console.count('Test');
+
+    // timing
+    const consoleTime = 'ctime';
+    console.time(consoleTime);
+    setTimeout(function(){
+      console.timeEnd(consoleTime);
+    }, 300);
+
+  </script>
+</body>
+</html>
