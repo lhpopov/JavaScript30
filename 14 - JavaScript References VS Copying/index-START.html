@@ -6,29 +6,56 @@
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
     // and we want to make a copy of it.
+
+    // const newPlayersOnTheBlock = players.slice();
+    // const newPlayersOnTheBlock = [...players];
+    // const newPlayersOnTheBlock = [].concat(players);
+    const newPlayersOnTheBlock = Array.from(players);
+
+    newPlayersOnTheBlock[0] = 'Bob';
+    
+    // console.log(players, newPlayersOnTheBlock);
+
     // You might think we can just do something like this:
     // however what happens when we update that array?
     // now here is the problem!
     // oh no - we have edited the original array too!
-    // Why? It's because that is an array reference, not an array 
-copy. They both point to the same array!
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
     // So, how do we fix this? We take a copy instead!
     // one way
     // or create a new array and concat the old one in
     // or use the new ES6 Spread
     // now when we update it, the original one isn't changed
-    // The same thing goes for objects, let's say we have a person 
-object
+    // The same thing goes for objects, let's say we have a person object
     // with Objects
     const person = {
       name: 'Wes Bos',
       age: 80
     };
     // and think we make a copy:
+    // const johnDoe = person;
+    // johnDoe.age = 15;
+
+    const johnDoe = Object.assign({}, person, { age: 15 });
+    console.log(person, johnDoe);
+
+    const person2 = {
+      name: 'Wes Bos',
+      age: 80,
+      other: {
+        role: 'dev',
+        level: 9
+      }
+    };
+    
+    const johnDoe2 = Object.assign({}, person2, { age: 15 });
+    johnDoe2.other.level = 5;
+
+    console.log(person2, johnDoe2);    
+
     // how do we take a copy instead?
     // We will hopefully soon see the object ...spread
-    // Things to note - this is only 1 level deep - both for Arrays 
-and Objects. lodash has a cloneDeep method, but you should think 
-twice before using it.
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think  twice before using it.
+
   </script> </body>
 </html>
