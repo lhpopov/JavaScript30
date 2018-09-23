@@ -22,17 +22,22 @@
     <form class="add-items">
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
-      <!-- <input type="button" class="controls" data-action="check-all" value="Check all">
-      <input type="button" class="controls" data-action="uncheck-all" value="Uncheck all">
-      <input type="button" class="controls" data-action="clear" value="Clear all"> -->
+      <input type="button" class="controls" data-action="checkAll" value="Check all">
+      <input type="button" class="controls" data-action="uncheckAll" value="Uncheck all">
+      <input type="button" class="controls" data-action="clearAll" value="Clear all">
     </form>
   </div>
 
 <script>
-  const addItems = document.querySelector('.add-items');
-  const itemsList = document.querySelector('.plates');
-  const items = JSON.parse(localStorage.getItem('items')) || [];
+  const addItems = document.querySelector('.add-items'),
+        itemsList = document.querySelector('.plates'),
+        items = JSON.parse(localStorage.getItem('items')) || [],
+        controls = [...document.querySelectorAll('.controls')];
   
+  function saveItems(){
+    localStorage.setItem('items', JSON.stringify(items));
+  }
+
   function handleAdd(e){
     e.preventDefault();
 
@@ -44,11 +49,13 @@
     
     items.push(newItem);
     this.reset();
-    localStorage.setItem('items', JSON.stringify(items));
-    renderItem(items, itemsList);
+
+    saveItems();
+
+    renderItems(items, itemsList);
   }
 
-  function renderItem(plates = [], platesList){
+  function renderItems(plates = [], platesList){
     platesList.innerHTML = plates.map((plate, inx) =>{
       return `
         <li>
@@ -66,12 +73,34 @@
       clickedItem.done = !clickedItem.done;
     }
   }
+  
+  function toggleCheck(check){
+    items.map(item => item.done = check);
+    saveItems();
+    renderItems(items, itemsList);    
+  }
+
+  
+  function checkAll(){
+    toggleCheck(true);
+  }
+
+  function uncheckAll(){
+    toggleCheck(false);
+  }
+
+  function clearAll(){
+    localStorage.removeItem('items');
+    items.length = 0;
+    renderItems(items, itemsList);
+  }
 
 
-  addItems.addEventListener('submit', handleAdd)
-  itemsList.addEventListener('click', toggleDone)
+  addItems.addEventListener('submit', handleAdd);
+  itemsList.addEventListener('click', toggleDone);
+  controls.map(control => control.addEventListener('click', window[control.dataset.action]));
 
-  renderItem(items, itemsList);
+  renderItems(items, itemsList);
 </script>
 
 
