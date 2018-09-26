@@ -28,6 +28,7 @@ function skip(){
 
 function handleRangeUpdate(){
     video[this.name] = this.value;
+    console.log('handleRangeUpdate', this.value);
 }
 
 function handleProgress(){
@@ -52,9 +53,9 @@ toggle.addEventListener('click', togglePlay);
 skipButtons.forEach(btn => btn.addEventListener('click', skip));
 
 ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
-// ranges.forEach(range => range.addEventListener('mouseMove', () => mouseDown && handleRangeUpdate));
-// ranges.forEach(range => range.addEventListener('mousedown', (e) => mouseDown = false));
-// ranges.forEach(range => range.addEventListener('mouseup', (e) => mouseDown = true));
+ranges.forEach(range => range.addEventListener('mousemove', () => mouseDown && handleRangeUpdate()));
+ranges.forEach(range => range.addEventListener('mousedown', (e) => mouseDown = true));
+ranges.forEach(range => range.addEventListener('mouseup', (e) => mouseDown = false));
 
 progress.addEventListener('click', scrub);
 progress.addEventListener('mousemove', (e) => mouseDown && scrub(e));
