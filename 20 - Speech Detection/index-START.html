@@ -47,14 +47,15 @@
         newColour = transc.replace(' ', '').toLocaleLowerCase();
       }
 
-      console.log(newColour, transc);
       if(changeColour && newColour !== ''){
         document.querySelector('body').style.backgroundColor = newColour;
         newColour = '';
         changeColour = false;
       }
-      
+
     }
+    
+    console.log(transc);
 
   });
 
