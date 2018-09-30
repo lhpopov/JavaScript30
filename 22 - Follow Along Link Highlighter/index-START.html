@@ -27,6 +27,28 @@
 
   <script>
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    const triggers = document.querySelectorAll('a');
+
+    const followElem = document.createElement('span');
+    followElem.classList.add('highlight');
+    document.body.appendChild(followElem);
+
+	function highLighUrl(e){
+		const highlightSize = this.getBoundingClientRect(),
+				coords = {
+					width: highlightSize.width,
+					height: highlightSize.height,
+					top: highlightSize.top + window.scrollY,
+					left: highlightSize.left + window.scrollX
+				};
+
+		followElem.style.width = `${coords.width}px`;
+		followElem.style.height = `${coords.height}px`;
+		followElem.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
+		console.log('followElem');
+	}
+
+	triggers.forEach(url => url.addEventListener('mouseenter', highLighUrl));
   </script>
 </body>
 </html>
