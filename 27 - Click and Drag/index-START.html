@@ -40,14 +40,14 @@
         startX,
         scrollLeft;
 
-    slider.addEventListener('mousedown', (e) => {
+    function handleMousedown(e){
         isDown = true;
         slider.classList.add('active');
         startX = e.pageX - slider.offsetLeft;
         scrollLeft = slider.scrollLeft;
-    });
+    }
 
-    slider.addEventListener('mousemove', (e) => {
+    function handleMousemove(e){
         if(!isDown){
             return;
         }
@@ -57,18 +57,17 @@
             walk = (x - startX) * 2;
 
         slider.scrollLeft = scrollLeft - walk;
+    }
 
-    });
-
-    slider.addEventListener('mouseup', () => {
+    function deactivateScroll(){
         isDown = false;
         slider.classList.remove('active');
-    });
+    }
 
-    slider.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.classList.remove('active');
-    });
+    slider.addEventListener('mousedown', handleMousedown);
+    slider.addEventListener('mousemove', handleMousemove);
+    slider.addEventListener('mouseup', deactivateScroll);
+    slider.addEventListener('mouseleave', deactivateScroll);
 
 </script>
 
